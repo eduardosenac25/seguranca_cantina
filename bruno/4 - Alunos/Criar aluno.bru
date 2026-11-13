@@ -1,0 +1,29 @@
+meta {
+  name: Criar aluno
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/alunos
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nome": "Maria Souza",
+    "turma": "6A",
+    "responsavel": "Joao Souza",
+    "email": "responsavel@teste.com",
+    "obs": "Sem observacoes"
+  }
+}
+
+docs {
+  Rota protegida: faca o Login antes.
+}

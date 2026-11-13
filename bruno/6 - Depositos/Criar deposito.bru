@@ -1,0 +1,23 @@
+meta {
+  name: Criar deposito
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/depositos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "alunoId": 1,
+    "tipo": "PIX",
+    "valor": 20
+  }
+}
+
+docs {
+  tipo: PIX, Dinheiro ou Depósito.
+}

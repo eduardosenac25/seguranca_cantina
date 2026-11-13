@@ -1,0 +1,36 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "senha": "{{senha}}"
+  }
+}
+
+vars:pre-request {
+  email: duduzin.peruzzo@gmail.com
+  senha: 100%Ads123
+}
+
+vars:post-response {
+  token: res.body.token
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Salva o token na variavel {{token}} automaticamente.
+  As rotas protegidas (Bearer) usam essa variavel. O token expira em 15 minutos.
+}

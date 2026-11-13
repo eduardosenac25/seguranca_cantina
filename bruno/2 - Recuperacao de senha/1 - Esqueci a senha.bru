@@ -1,0 +1,30 @@
+meta {
+  name: 1 - Esqueci a senha
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/usuarios/esqueci-senha
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{email}}"
+  }
+}
+
+vars:pre-request {
+  email: duduzin.peruzzo@gmail.com
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Gera o codigo de 4 caracteres e envia por e-mail (veja no Mailtrap).
+  A resposta e a mesma exista ou nao o e-mail.
+}

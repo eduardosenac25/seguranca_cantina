@@ -1,0 +1,32 @@
+meta {
+  name: 3 - Redefinir com codigo errado
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/usuarios/redefinir-senha
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "codigo": "ZZZZ",
+    "senha": "{{novaSenha}}"
+  }
+}
+
+vars:pre-request {
+  email: duduzin@gmail.com
+  novaSenha: 100%Loucura123
+}
+
+assert {
+  res.status: eq 400
+}
+
+docs {
+  Deve retornar 400: Codigo invalido ou expirado.
+}

@@ -1,0 +1,33 @@
+meta {
+  name: 2 - Redefinir senha
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:3000/usuarios/redefinir-senha
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "codigo": "VJTY",
+    "senha": "{{novaSenha}}"
+  }
+}
+
+vars:pre-request {
+  email: duduzin.peruzzo@gmail.com
+  novaSenha: 100%Edecio123
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Troque "ABCD" pelo codigo recebido por e-mail (valido por 15 minutos, uso unico).
+  Depois, o login passa a valer com a senha de {{novaSenha}}.
+}

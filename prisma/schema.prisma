@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Aluno {
+  id           Int         @id @default(autoincrement())
+  nome         String      @db.VarChar(40) 
+  turma        String      @db.VarChar(3) 
+  responsavel  String      @db.VarChar(40) 
+  email        String      @db.VarChar(60) 
+  obs          String?     @db.Text
+  saldo        Decimal     @db.Decimal(9,2) @default(0)
+  depositos    Deposito[]
+  vendas       Venda[]
+  @@map("alunos")
+}
+
+model Produto {
+  id           Int        @id @default(autoincrement())
+  nome         String     @db.VarChar(60) 
+  quant        Int        @db.SmallInt
+  preco        Decimal    @db.Decimal(9,2)
+  vendas       Venda[]
+  @@map("produtos")
+}
+
+model Deposito {
+  id         Int        @id @default(autoincrement())
+  aluno      Aluno      @relation(fields: [alunoId], references: [id])
+  alunoId    Int
+  valor      Decimal    @db.Decimal(9,2)
+  tipo       String     @db.VarChar(10)
+  data       DateTime   @default(now())
+  @@map("depositos")
+}
+
+model Venda {
+  id         Int       @id @default(autoincrement())
+  aluno      Aluno     @relation(fields: [alunoId], references: [id])
+  alunoId    Int
+  produto    Produto   @relation(fields: [produtoId], references: [id])
+  produtoId  Int
+  quant      Int       @db.SmallInt
+  preco      Decimal   @db.Decimal(9,2)
+  data       DateTime  @default(now())
+  @@map("vendas")
+}
+
+model Usuario {
+  id           Int         @id @default(autoincrement())
+  nome         String      @db.VarChar(30)
+  email        String      @db.VarChar(100) @unique()
+  senha        String      @db.VarChar(60)    // 60 é o tamanho do hash gerado bcrypt
+  recuperaSenha  String?   @db.VarChar(4)     // código de 4 caracteres enviado por e-mail
+  recuperaExpira DateTime?                    // validade do código de recuperação
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt()
+  @@map("usuarios")
+}

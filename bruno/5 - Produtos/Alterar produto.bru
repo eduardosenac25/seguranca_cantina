@@ -1,0 +1,19 @@
+meta {
+  name: Alterar produto
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/produtos/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Suco de laranja",
+    "quant": 50,
+    "preco": 4.5
+  }
+}

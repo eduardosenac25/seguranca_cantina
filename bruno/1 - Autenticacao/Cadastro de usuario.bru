@@ -1,0 +1,33 @@
+meta {
+  name: Cadastro de usuario
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/usuarios
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Eduardo Peruzzo Silva",
+    "email": "{{email}}",
+    "senha": "{{senha}}"
+  }
+}
+
+vars:pre-request {
+  senha: 100%Ads123
+  email: duduzin.peruzzo@gmail.com
+}
+
+assert {
+  res.status: eq 201
+}
+
+docs {
+  Nome: minimo 10 caracteres.
+  Senha: minimo 8, com maiuscula, minuscula, numero e simbolo.
+}

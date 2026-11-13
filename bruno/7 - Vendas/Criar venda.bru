@@ -1,0 +1,19 @@
+meta {
+  name: Criar venda
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/vendas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "alunoId": 1,
+    "produtoId": 1,
+    "quant": 2
+  }
+}

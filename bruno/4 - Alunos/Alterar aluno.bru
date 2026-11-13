@@ -1,0 +1,21 @@
+meta {
+  name: Alterar aluno
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/alunos/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Maria Souza",
+    "turma": "6A",
+    "responsavel": "Joao Souza",
+    "email": "responsavel@teste.com",
+    "obs": "Sem observacoes"
+  }
+}

@@ -1,0 +1,31 @@
+meta {
+  name: 4 - Redefinir com senha fraca
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/usuarios/redefinir-senha
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "codigo": "ABCD",
+    "senha": "abc"
+  }
+}
+
+vars:pre-request {
+  email: duduzin@gmail.com
+}
+
+assert {
+  res.status: eq 400
+}
+
+docs {
+  Deve retornar 400 listando as regras de composicao nao atendidas.
+}
